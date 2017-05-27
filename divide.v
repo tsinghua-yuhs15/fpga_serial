@@ -19,9 +19,9 @@ always @(posedge clk_in or negedge reset) begin
   end
   else begin
     if(state==0) clk_out=~clk_out;
-    else if(state==rate-2) state<=0;
+    else if(state==rate-13'd2) state<=0;
     else begin
-      state<=state+2;
+      state<=state+13'd2;
     end
   end
 end
