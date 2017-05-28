@@ -10,6 +10,7 @@ input clk_in,reset;
 
 output clk_out;
 
+reg clk_out;
 reg[13:0] state;
 
 always @(posedge clk_in or negedge reset) begin
@@ -18,11 +19,11 @@ always @(posedge clk_in or negedge reset) begin
     clk_out<=0;
   end
   else begin
-    if(state==0) clk_out=~clk_out;
-    else if(state==rate-13'd2) state<=0;
-    else begin
-      state<=state+13'd2;
-    end
+    if(state==14'd0)
+      clk_out=~clk_out;
+    state<=state+14'd2;
+    if(state==rate-2)
+      state<=14'd0;
   end
 end
 

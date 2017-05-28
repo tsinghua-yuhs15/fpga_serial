@@ -13,7 +13,8 @@ input [7:0] RX_DATA;
 output TX_EN;
 output [7:0] TX_DATA;
 
-wire state;
+reg [7:0] TX_DATA;
+reg state,TX_EN;
 
 always @(negedge RX_STATUS) begin
   state<=1;   
@@ -31,5 +32,4 @@ always @(posedge clk) begin
   end 
 end
   
-end
 endmodule // control

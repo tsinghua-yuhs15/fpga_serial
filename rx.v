@@ -13,8 +13,8 @@ output [7:0] RX_DATA;
 
 reg RX_STATUS;
 reg [7:0] RX_DATA;
-
-reg state,RX_EN,sample;
+reg [7:0] state;
+reg RX_EN,sample;
 
 always @(posedge baud_clk) begin
   sample<=(state==8'd24 &&
@@ -24,7 +24,7 @@ always @(posedge baud_clk) begin
           state==8'd88 &&
           state==8'd104 &&
           state==8'd120 &&
-          state==8'd136)1:0;
+          state==8'd136)?1:0;
 end
 
 always @(posedge baud_clk or negedge reset) begin
@@ -53,7 +53,7 @@ always @(posedge baud_clk or negedge reset) begin
 end
 
 always @(posedge sample) begin
-  RX_DATA>>1;
+  RX_DATA[6:0]<=RX_DATA[7:1];
   RX_DATA[7]<=UART_RX;
 end
 

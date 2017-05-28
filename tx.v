@@ -6,10 +6,12 @@ module transmitter(
   UART_TX
 );
 
-input clk,TX_EN,TX_DATA;
+input clk,TX_EN;
+input [7:0] TX_DATA;
 output TX_STATUS,UART_TX;
 
 reg [4:0] state=4'b0000;
+reg TX_STATUS,UART_TX;
 
 always @(posedge clk) begin
   if(TX_EN && ~state) begin
@@ -18,7 +20,6 @@ always @(posedge clk) begin
   end
   else if(state==4'd9) begin
     state<=0;
-    TX_DATA<=8'b11111111;
   end
   else begin
     if(~state) begin
@@ -32,6 +33,7 @@ always @(posedge clk) begin
         4'd6:UART_TX=TX_DATA[5];
         4'd7:UART_TX=TX_DATA[6];
         4'd8:UART_TX=TX_DATA[7];
+      endcase
       state<=state+1;
     end
   end
