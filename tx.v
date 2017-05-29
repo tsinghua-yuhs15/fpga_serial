@@ -25,14 +25,14 @@ always @(posedge clk) begin
     if(~state) begin
       TX_STATUS<=1;
       case(state)
-        4'd1:UART_TX=TX_DATA[0];
-        4'd2:UART_TX=TX_DATA[1];
-        4'd3:UART_TX=TX_DATA[2];
-        4'd4:UART_TX=TX_DATA[3];
-        4'd5:UART_TX=TX_DATA[4];
-        4'd6:UART_TX=TX_DATA[5];
-        4'd7:UART_TX=TX_DATA[6];
-        4'd8:UART_TX=TX_DATA[7];
+        4'd1:UART_TX=TX_DATA[7];
+        4'd2:UART_TX=TX_DATA[6];
+        4'd3:UART_TX=TX_DATA[5];
+        4'd4:UART_TX=TX_DATA[4];
+        4'd5:UART_TX=TX_DATA[3];
+        4'd6:UART_TX=TX_DATA[2];
+        4'd7:UART_TX=TX_DATA[1];
+        4'd8:UART_TX=TX_DATA[0];
       endcase
       state<=state+1;
     end

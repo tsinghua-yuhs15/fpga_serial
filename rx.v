@@ -17,13 +17,13 @@ reg [7:0] state;
 reg RX_EN,sample;
 
 always @(posedge baud_clk) begin
-  sample<=(state==8'd24 &&
-          state==8'd40 &&
-          state==8'd56 &&
-          state==8'd72 &&
-          state==8'd88 &&
-          state==8'd104 &&
-          state==8'd120 &&
+  sample<=(state==8'd24 ||
+          state==8'd40 ||
+          state==8'd56 ||
+          state==8'd72 ||
+          state==8'd88 ||
+          state==8'd104 ||
+          state==8'd120 ||
           state==8'd136)?1:0;
 end
 
@@ -41,7 +41,7 @@ always @(posedge baud_clk or negedge reset) begin
       RX_EN<=1;
       state<=0;
     end
-    else if(RX_EN && state<8'd135) begin
+    else if(RX_EN && state<8'd143) begin
       state<=state+1;
     end
     else if(state<=8'd143) begin
