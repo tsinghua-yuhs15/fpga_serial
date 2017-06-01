@@ -14,18 +14,22 @@ output TX_EN;
 output [7:0] TX_DATA;
 
 reg [7:0] TX_DATA;
-reg state,TX_EN;
+reg TX_EN;
+reg state;
 
-always @(negedge RX_STATUS) begin
-  state<=1;   
-  TX_DATA[7]<=RX_DATA[7];
-  TX_DATA[6:0]<=(RX_DATA[7])?~RX_DATA[6:0]:RX_DATA[6:0];      
+initial begin
+  state<=0;
 end
 
 always @(posedge clk) begin
-  if(state && TX_STATUS) begin
+  if(~state && RX_STATUS) begin
+    state<=1;   
+    TX_DATA[7]<=RX_DATA[7];
+    TX_DATA[6:0]<=(RX_DATA[7])?~RX_DATA[6:0]:RX_DATA[6:0]; 
+  end
+  else if(state && TX_STATUS) begin
     TX_EN<=1;
-    state<=0;
+	 state<=0;
   end 
   else if(~state) begin
     TX_EN<=0;
